@@ -1,0 +1,6 @@
+framework module MVCalendar {
+  umbrella header "MVCalendar-umbrella.h"
+
+  export *
+  module * { export * }
+}
