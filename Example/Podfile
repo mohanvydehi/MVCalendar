@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'MVCalendar_Example' do
+  pod 'MVCalendar', :path => '../'
+
+  target 'MVCalendar_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
