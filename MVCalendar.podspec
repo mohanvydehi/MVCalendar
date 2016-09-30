@@ -23,9 +23,9 @@ Pod::Spec.new do |s|
 
   s.source_files = 'MVCalendar/Classes/**/*'
   
-#s.resource_bundles = {
-#   'MVCalendar' => ['MVCalendar/Assets/*.png']
-# }
+  #s.resource_bundles = {
+  #   'MVCalendar' => ['MVCalendar/Assets/*.png']
+  # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

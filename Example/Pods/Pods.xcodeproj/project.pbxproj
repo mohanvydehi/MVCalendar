@@ -17,7 +17,10 @@
 		BFAD3654928CBAE390353213BD3C162C /* Pods-MVCalendar_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 43FCB3BC173FC23E49A2D871A1FB1F9A /* Pods-MVCalendar_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0E37A62F76F0A472B8225C94F3B5A0B /* MVCalendar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 803D8EC351113A954CBEB719B9A9F306 /* MVCalendar-dummy.m */; };
 		C46B4A50EB4B2AC5F8BB6F5A7434B2CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		F17291E01D9EE2B800B8401B /* MVPodTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17291DF1D9EE2B800B8401B /* MVPodTester.swift */; };
+		F17292031D9EEA3400B8401B /* MVCalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17291FF1D9EEA3400B8401B /* MVCalendarDayCell.swift */; };
+		F17292041D9EEA3400B8401B /* MVCalendarFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17292001D9EEA3400B8401B /* MVCalendarFlowLayout.swift */; };
+		F17292051D9EEA3400B8401B /* MVCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17292011D9EEA3400B8401B /* MVCalendarManager.swift */; };
+		F17292061D9EEA3400B8401B /* MVCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17292021D9EEA3400B8401B /* MVCalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +80,10 @@
 		DA784C198E45E0444547420E9866CCD0 /* MVCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MVCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E68B7BC759A24D162EC2DFCCA55AD784 /* Pods-MVCalendar_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MVCalendar_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		E9E33E1542DEA2C4251DF303F7C8E8F2 /* MVCalendar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MVCalendar-prefix.pch"; sourceTree = "<group>"; };
-		F17291DF1D9EE2B800B8401B /* MVPodTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVPodTester.swift; sourceTree = "<group>"; };
+		F17291FF1D9EEA3400B8401B /* MVCalendarDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVCalendarDayCell.swift; sourceTree = "<group>"; };
+		F17292001D9EEA3400B8401B /* MVCalendarFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVCalendarFlowLayout.swift; sourceTree = "<group>"; };
+		F17292011D9EEA3400B8401B /* MVCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVCalendarManager.swift; sourceTree = "<group>"; };
+		F17292021D9EEA3400B8401B /* MVCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVCalendarView.swift; sourceTree = "<group>"; };
 		FAEEA4CC43D314DEF9B9339E3A99ACE2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,7 +176,10 @@
 		6E96E1AB9CAAABC4A910ED2D74FE6F52 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F17291DF1D9EE2B800B8401B /* MVPodTester.swift */,
+				F17292021D9EEA3400B8401B /* MVCalendarView.swift */,
+				F17292011D9EEA3400B8401B /* MVCalendarManager.swift */,
+				F17291FF1D9EEA3400B8401B /* MVCalendarDayCell.swift */,
+				F17292001D9EEA3400B8401B /* MVCalendarFlowLayout.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -409,8 +418,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F17292041D9EEA3400B8401B /* MVCalendarFlowLayout.swift in Sources */,
 				C0E37A62F76F0A472B8225C94F3B5A0B /* MVCalendar-dummy.m in Sources */,
-				F17291E01D9EE2B800B8401B /* MVPodTester.swift in Sources */,
+				F17292051D9EEA3400B8401B /* MVCalendarManager.swift in Sources */,
+				F17292031D9EEA3400B8401B /* MVCalendarDayCell.swift in Sources */,
+				F17292061D9EEA3400B8401B /* MVCalendarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

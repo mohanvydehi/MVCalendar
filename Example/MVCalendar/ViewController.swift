@@ -15,9 +15,6 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        let tester = MVPodTester()
-        tester.testPrint()
-        
     }
     
 }
