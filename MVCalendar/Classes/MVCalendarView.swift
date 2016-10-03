@@ -17,23 +17,28 @@ let DATE_SELECTED_INDEX = 2
 
 let CELL_IDENTIFIER = "MVCalendarDayCell"
 
-protocol MVCalendarViewDataSource {
+
+@objc
+public protocol MVCalendarViewDataSource {
     
-    func startDate() -> Date?
-    func endDate() -> Date?
+    @objc optional func startDate() -> Date?
+    @objc optional func endDate() -> Date?
     
 }
 
-protocol MVCalendarViewDelegate {
+
+@objc
+public protocol MVCalendarViewDelegate {
     
-    func calendar(calendar: MVCalendarView, didSelectDate date: Date) -> Void
+    @objc optional func calendar(calendar: MVCalendarView, didSelectDate date: Date) -> Void
     
 }
 
-class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
+
+public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var dataSource : MVCalendarViewDataSource?
-    var delegate : MVCalendarViewDelegate?
+    public var dataSource : MVCalendarViewDataSource?
+    public var delegate : MVCalendarViewDelegate?
 
     lazy var calendarView : UICollectionView = {
         
@@ -64,7 +69,7 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
         
     }()
     
-    var calendar : NSCalendar {
+    public var calendar : NSCalendar {
         return self.gregorian
     }
     
@@ -93,11 +98,11 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
         self.initialSetup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         self.initialSetup()
     }
     
@@ -106,9 +111,9 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: CollectionView Delegate and DataSource
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
         
-        guard let startDate = self.dataSource?.startDate(), let endDate = self.dataSource?.endDate() else {
+        guard let startDate = self.dataSource?.startDate!(), let endDate = self.dataSource?.endDate!() else {
             return 0
         }
         
@@ -148,7 +153,7 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
     
     private var monthInfo : [Int:[Int]] = [Int:[Int]]()
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         var monthOffsetComponents = DateComponents()
         monthOffsetComponents.month = section;
@@ -169,7 +174,7 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let dayCell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(MVCalendarDayCell.self), for: indexPath) as! MVCalendarDayCell
         
@@ -206,11 +211,11 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: ScrollView Delegate Methods
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.calculateDateBasedOnScrollViewPosition(scrollView: scrollView)
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         self.calculateDateBasedOnScrollViewPosition(scrollView: scrollView)
     }
     
@@ -249,7 +254,7 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
     // MARK : CollectionView Delegate Methods
     
     private var dateBeingSelectedByUser : Date?
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
         let currentMonthInfo : [Int] = monthInfo[indexPath.section]!
         let firstDayInMonth = currentMonthInfo[FIRST_DAY_INDEX]
@@ -331,13 +336,13 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let dateBeingSelectedByUser = dateBeingSelectedByUser else {
             return
         }
                 
-        delegate?.calendar(calendar: self, didSelectDate: dateBeingSelectedByUser)
+        delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser)
         
         // Update model
         selectedIndexPaths.append(indexPath)
@@ -345,7 +350,7 @@ class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelega
         
     }
 
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
         guard dateBeingSelectedByUser != nil else {
             return
