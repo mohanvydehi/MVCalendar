@@ -8,13 +8,13 @@
 
 import UIKit
 
-let cellColorDefault = UIColor.clear
+let cellColorDefault = UIColor(white: 0.0, alpha: 0.0)
 let cellColorToday = UIColor(red: 254.0/255.0, green: 73.0/255.0, blue: 64.0/255.0, alpha: 0.3)
 let borderColor = UIColor(red: 254.0/255.0, green: 73.0/255.0, blue: 64.0/255.0, alpha: 0.8)
 
-class MVCalendarDayCell: UICollectionViewCell {
+public class MVCalendarDayCell: UICollectionViewCell {
     
-    var isToday : Bool = false {
+    public var isToday : Bool = false {
         
         didSet {
             
@@ -27,7 +27,7 @@ class MVCalendarDayCell: UICollectionViewCell {
         }
     }
     
-    override var isSelected : Bool {
+    override public var isSelected : Bool {
         
         didSet {
             
@@ -56,7 +56,7 @@ class MVCalendarDayCell: UICollectionViewCell {
     lazy var textLabel : UILabel = {
         
         let lbl = UILabel()
-        lbl.textAlignment = NSTextAlignment.center
+        lbl.textAlignment = .center
         lbl.textColor = UIColor.darkGray
         lbl.sizeToFit()
         
@@ -75,7 +75,7 @@ class MVCalendarDayCell: UICollectionViewCell {
 
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

@@ -8,9 +8,9 @@
 
 import UIKit
 
-class MVCalendarFlowLayout: UICollectionViewFlowLayout {
+public class MVCalendarFlowLayout: UICollectionViewFlowLayout {
 
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
         return super.layoutAttributesForElements(in: rect)?.map {
             attributes in
@@ -21,7 +21,7 @@ class MVCalendarFlowLayout: UICollectionViewFlowLayout {
         }
     }
     
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         
         if let attributes = super.layoutAttributesForItem(at: indexPath) {
             

@@ -106,9 +106,6 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         self.initialSetup()
     }
     
-    // MARK: Public Methods
-    
-    
     // MARK: CollectionView Delegate and DataSource
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
