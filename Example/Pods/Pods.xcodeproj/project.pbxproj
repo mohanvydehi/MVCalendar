@@ -9,17 +9,17 @@
 /* Begin PBXBuildFile section */
 		079A8B792A7C742112BF388E61045392 /* Pods-MVCalendar_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE00741108AC338F4ED4F282FA7211D /* Pods-MVCalendar_Example-dummy.m */; };
 		1110112877F97F1F30EA447F0267A0EB /* MVCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7787E19B990E231FDF50E24E3B1356A5 /* MVCalendarView.swift */; };
+		15D9DFB07E849C61A74FCFCF4A0BD60B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		23D363FA6CB15B184EB97D72BF2740CA /* MVCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64E6D1E07B1C0BE393CD3A718B2483D /* MVCalendarManager.swift */; };
 		3D2568ACFC49DCB91919B289A0C81D67 /* Pods-MVCalendar_Example-MVCalendar_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBE812748E571F2E03041ED3032B847 /* Pods-MVCalendar_Example-MVCalendar_Tests-dummy.m */; };
-		4C267A7885E72800E5FC69D054441657 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		4D15348083493DDFE4E49D98545199C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		675B59AAC08AD687A48EB3058304ECE2 /* MVCalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42B1942CBDF16DE63C9D41064F5226 /* MVCalendarDayCell.swift */; };
-		79E0C796D64F159164DD50CCA6CE5111 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		80F174A17A696D3C1568935904911ABD /* Pods-MVCalendar_Example-MVCalendar_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A84AFEB671290CD13DC1B350F87C4AEE /* Pods-MVCalendar_Example-MVCalendar_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AF67A72DEB7E81A23D6295711C5DFA02 /* MVCalendar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FC0D3D9C43399DADEF5A3875CF95B /* MVCalendar-dummy.m */; };
 		BFAD3654928CBAE390353213BD3C162C /* Pods-MVCalendar_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 43FCB3BC173FC23E49A2D871A1FB1F9A /* Pods-MVCalendar_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B457D945A5CF0E24035E4269B0BC2C /* MVCalendarFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3D6892906702B6CC96A44E81F4FC8 /* MVCalendarFlowLayout.swift */; };
-		C46B4A50EB4B2AC5F8BB6F5A7434B2CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		DC2504F8B98621CEB18974EB45CFBC5D /* MVCalendar-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 20AC892AE8072A77BC73CB37F4273195 /* MVCalendar-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FB1BDD2AFFD5B007924C0C6A021B0E8D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,14 +65,13 @@
 		C367163B9F86D77457C6B8C9756EA8C3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49CAD958B003D2E7E0B853CE2150410 /* Pods_MVCalendar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVCalendar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A8B7B174CC1436DCE80A64B7175DBB /* Pods-MVCalendar_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MVCalendar_Example-frameworks.sh"; sourceTree = "<group>"; };
+		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CBC3D6892906702B6CC96A44E81F4FC8 /* MVCalendarFlowLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MVCalendarFlowLayout.swift; sourceTree = "<group>"; };
 		CC35006409517FC17D622823B6556DA1 /* Pods_MVCalendar_Example_MVCalendar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVCalendar_Example_MVCalendar_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D0655398EF21C19CCC1115A19AC054BA /* MVCalendar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MVCalendar-prefix.pch"; sourceTree = "<group>"; };
 		D64E6D1E07B1C0BE393CD3A718B2483D /* MVCalendarManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MVCalendarManager.swift; sourceTree = "<group>"; };
 		E68B7BC759A24D162EC2DFCCA55AD784 /* Pods-MVCalendar_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MVCalendar_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		F04DE6A0F0BDA396EDD795BB198F8FDD /* MVCalendar.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MVCalendar.modulemap; sourceTree = "<group>"; };
-		F1E358A21DA2CC67003AEC93 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		FAEEA4CC43D314DEF9B9339E3A99ACE2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD35654AE7ED26373EBB3063B08A9307 /* MVCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MVCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE9ABC44D4C49E91B7083FC310475D57 /* MVCalendar.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MVCalendar.xcconfig; sourceTree = "<group>"; };
@@ -83,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79E0C796D64F159164DD50CCA6CE5111 /* Foundation.framework in Frameworks */,
+				15D9DFB07E849C61A74FCFCF4A0BD60B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C267A7885E72800E5FC69D054441657 /* Foundation.framework in Frameworks */,
+				FB1BDD2AFFD5B007924C0C6A021B0E8D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C46B4A50EB4B2AC5F8BB6F5A7434B2CB /* Foundation.framework in Frameworks */,
+				4D15348083493DDFE4E49D98545199C1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,14 +113,6 @@
 			);
 			name = MVCalendar;
 			path = ../..;
-			sourceTree = "<group>";
-		};
-		3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 		46F67186CFAB646D931758B357BB8DC8 /* Pods-MVCalendar_Example-MVCalendar_Tests */ = {
@@ -161,6 +152,14 @@
 				CC35006409517FC17D622823B6556DA1 /* Pods_MVCalendar_Example_MVCalendar_Tests.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		7DA9137BF491B8C0647A089158F66988 /* Targets Support Files */ = {
@@ -208,8 +207,7 @@
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F1E358A21DA2CC67003AEC93 /* UIKit.framework */,
-				3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */,
+				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

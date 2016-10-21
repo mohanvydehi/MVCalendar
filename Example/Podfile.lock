@@ -1,5 +1,5 @@
 PODS:
-  - MVCalendar (0.1.2)
+  - MVCalendar (0.1.3)
 
 DEPENDENCIES:
   - MVCalendar (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MVCalendar: e77a961010e5a2378eca0c9aaef0c10f8f90bbf3
+  MVCalendar: 4cdc475662679c20b1555e13227609b8f9f140f3
 
 PODFILE CHECKSUM: 0ff989d47a39195fe5daac616cd7b3a839051136
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.1.1
