@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MVCalendar'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'MVCalendar is a custom calendar in swift.'
 
 

@@ -11,6 +11,8 @@ import UIKit
 let cellColorDefault = UIColor(white: 0.0, alpha: 0.0)
 let cellColorToday = UIColor(red: 254.0/255.0, green: 73.0/255.0, blue: 64.0/255.0, alpha: 0.3)
 let borderColor = UIColor(red: 254.0/255.0, green: 73.0/255.0, blue: 64.0/255.0, alpha: 0.8)
+let currentMonthTextColor = UIColor.darkGray
+let previousMonthTextColor = UIColor.lightGray
 
 public class MVCalendarDayCell: UICollectionViewCell {
     
@@ -21,9 +23,9 @@ public class MVCalendarDayCell: UICollectionViewCell {
             if isToday == true {
                 self.pBackgroundView.backgroundColor = cellColorToday
             }
-            else {
-                self.pBackgroundView.backgroundColor = cellColorDefault
-            }
+//            else {
+//                self.pBackgroundView.backgroundColor = cellColorDefault
+//            }
         }
     }
     
@@ -31,19 +33,36 @@ public class MVCalendarDayCell: UICollectionViewCell {
         
         didSet {
             
-            if isSelected == true {
-                self.pBackgroundView.backgroundColor = UIColor.lightGray
-            }
-            else {
-                self.pBackgroundView.backgroundColor = cellColorDefault
+            if isToday == false {
+                
+                if isSelected == true && isCurrentMonth == true {
+                    self.pBackgroundView.backgroundColor = UIColor.lightGray
+                }
+                else {
+                    self.pBackgroundView.backgroundColor = cellColorDefault
+                }
+                
             }
             
         }
     }
     
+    public var isCurrentMonth : Bool = true {
+        
+        didSet {
+            
+            if isCurrentMonth == true {
+                textLabel.textColor = currentMonthTextColor
+            } else {
+                textLabel.textColor = previousMonthTextColor
+            }
+            
+        }
+        
+    }
+    
     lazy var pBackgroundView : UIView = {
         
-//        var vFrame = self.frame.insetBy(dx: 3.0, dy: 3.0)
         let vFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         
         let view = UIView(frame: vFrame)
@@ -57,7 +76,7 @@ public class MVCalendarDayCell: UICollectionViewCell {
         
         let lbl = UILabel()
         lbl.textAlignment = .center
-        lbl.textColor = UIColor.darkGray
+        lbl.textColor = currentMonthTextColor
         lbl.sizeToFit()
         
         return lbl

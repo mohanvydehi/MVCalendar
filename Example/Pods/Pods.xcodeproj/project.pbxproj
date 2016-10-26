@@ -136,10 +136,10 @@
 		5987AE8ADDCDBF645593ECCB5C935613 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7787E19B990E231FDF50E24E3B1356A5 /* MVCalendarView.swift */,
+				D64E6D1E07B1C0BE393CD3A718B2483D /* MVCalendarManager.swift */,
 				2D42B1942CBDF16DE63C9D41064F5226 /* MVCalendarDayCell.swift */,
 				CBC3D6892906702B6CC96A44E81F4FC8 /* MVCalendarFlowLayout.swift */,
-				D64E6D1E07B1C0BE393CD3A718B2483D /* MVCalendarManager.swift */,
-				7787E19B990E231FDF50E24E3B1356A5 /* MVCalendarView.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

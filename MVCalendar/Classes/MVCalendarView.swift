@@ -8,14 +8,23 @@
 
 import UIKit
 
-let MAXIMUM_NUMBER_OF_ROWS = 6
-let NUMBER_OF_DAYS_IN_WEEK = 7
+let MAXIMUM_NUMBER_OF_ROWS  = 6
+let NUMBER_OF_DAYS_IN_WEEK  = 7
 
-let FIRST_DAY_INDEX = 0
-let NUMBER_OF_DAYS_INDEX = 1
-let DATE_SELECTED_INDEX = 2
+let FIRST_DAY_INDEX         = 0
+let NUMBER_OF_DAYS_INDEX    = 1
+let CURRENT_MONTH_INDEX     = 2
 
-let CELL_IDENTIFIER = "MVCalendarDayCell"
+let CELL_IDENTIFIER         = "MVCalendarDayCell"
+
+
+enum MVMonthComparisonResult : Int {
+    
+    case same
+    case previous
+    case next
+    
+}
 
 
 @objc
@@ -89,8 +98,8 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
     private var startOfMonthCache : Date = Date()
     private var todayIndexPath : NSIndexPath?
     
-    private(set) var selectedIndexPaths : [IndexPath] = [IndexPath]()
-    private(set) var selectedDates : [Date] = [Date]()
+    private var selectedIndexPath : IndexPath = IndexPath()
+    private var selectedDate : Date = Date()
     
     
     override init(frame: CGRect) {
@@ -165,7 +174,7 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         firstWeekdayOfMonthIndex = firstWeekdayOfMonthIndex - 1 // firstWeekdayOfMonthIndex should be 0-Indexed
         firstWeekdayOfMonthIndex = (firstWeekdayOfMonthIndex + 6) % 7 // push it modularly so that we take it back one day so that the first day is Monday instead of Sunday which is the default
         
-        monthInfo[section] = [firstWeekdayOfMonthIndex, numberOfDaysInMonth]
+        monthInfo[section] = [firstWeekdayOfMonthIndex, numberOfDaysInMonth, self.gregorian.component(NSCalendar.Unit.month, from: correctMonthForSectionDate)]
         
         return NUMBER_OF_DAYS_IN_WEEK * MAXIMUM_NUMBER_OF_ROWS // 7 x 6 = 42
         
@@ -178,32 +187,51 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         let currentMonthInfo : [Int] = monthInfo[indexPath.section]! // we are guaranteed an array by the fact that we reached this line (so unwrap)
         
         let fdIndex = currentMonthInfo[FIRST_DAY_INDEX]
-        let nDays = currentMonthInfo[NUMBER_OF_DAYS_INDEX]
         
-        let fromStartOfMonthIndexPath =  IndexPath(item: indexPath.item - fdIndex, section: indexPath.section)
-        
-        if indexPath.item >= fdIndex &&
-            indexPath.item < fdIndex + nDays {
-            
-            dayCell.textLabel.text = String(fromStartOfMonthIndexPath.item + 1)
-            
-        }
-        else {
-            dayCell.textLabel.text = ""
-        }
-        
-        dayCell.isSelected = selectedIndexPaths.contains(indexPath)
-
-        if indexPath.section == 0 && indexPath.item == 0 {
-            self.scrollViewDidEndDecelerating(collectionView)
-        }
+        let date = dateForIndexPath(indexPath: indexPath)
+        dayCell.textLabel.text = String(self.gregorian.component(NSCalendar.Unit.day, from: date))
         
         if let idx = todayIndexPath {
             dayCell.isToday = (idx.section == indexPath.section && idx.item + fdIndex == indexPath.item)
         }
         
+        dayCell.isCurrentMonth = isSelectedIndexPathCurrentMonth(indexPath: indexPath)
+        dayCell.isSelected = (selectedDate.compare(date) == .orderedSame)
+
+        if indexPath.section == 0 && indexPath.item == 0 {
+            self.scrollViewDidEndDecelerating(collectionView)
+        }
+        
         return dayCell
         
+    }
+    
+    private func isSelectedIndexPathCurrentMonth(indexPath: IndexPath) -> Bool {
+        
+        return (selectedIndexPathMonthComparisonResult(indexPath: indexPath) == MVMonthComparisonResult.same)
+        
+    }
+    
+    private func selectedIndexPathMonthComparisonResult(indexPath: IndexPath) -> MVMonthComparisonResult {
+        
+        let currentMonthInfo : [Int] = monthInfo[indexPath.section]!
+        let currentMonth = currentMonthInfo[CURRENT_MONTH_INDEX]
+        
+        let selectedDate = dateForIndexPath(indexPath: indexPath)
+        
+        if currentMonth == self.gregorian.component(NSCalendar.Unit.month, from: selectedDate) {
+            return MVMonthComparisonResult.same
+        }
+        
+        if currentMonth <= self.gregorian.component(NSCalendar.Unit.month, from: selectedDate) {
+            return MVMonthComparisonResult.next
+        }
+        
+        if currentMonth >= self.gregorian.component(NSCalendar.Unit.month, from: selectedDate) {
+            return MVMonthComparisonResult.previous
+        }
+        
+        return MVMonthComparisonResult.same
     }
     
     // MARK: ScrollView Delegate Methods
@@ -234,15 +262,8 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         guard let yearDate = self.gregorian.date(byAdding: monthsOffsetComponents, to: self.startOfMonthCache, options: NSCalendar.Options()) else {
             return
         }
-//        
-//        let month = self.gregorian.component(NSCalendar.Unit.month, from: yearDate) // get month
-//        
-//        let monthName = DateFormatter().monthSymbols[(month-1) % 12] // 0 indexed array
-//        
-//        let year = self.gregorian.component(NSCalendar.Unit.year, from: yearDate)
-//        
+
         self.displayDate = yearDate
-        
         
 //        delegate.calendar(self, didScrollToMonth: yearDate)
         
@@ -253,27 +274,36 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
     private var dateBeingSelectedByUser : Date?
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
+        let dateUserSelected = dateForIndexPath(indexPath: indexPath)
+        
+        if dateUserSelected != nil {
+            
+            dateBeingSelectedByUser = dateUserSelected
+            
+            // Optional protocol method (the delegate can "object")
+            //            if let canSelectFromDelegate = delegate?.calendar?(self, canSelectDate: dateUserSelected) {
+            //                return canSelectFromDelegate
+            //            }
+            
+            return true // it can select any date by default
+
+        }
+        
+        return false
+        
+    }
+    
+    private func dateForIndexPath(indexPath: IndexPath) -> Date {
+        
         let currentMonthInfo : [Int] = monthInfo[indexPath.section]!
         let firstDayInMonth = currentMonthInfo[FIRST_DAY_INDEX]
+        let currentMonth = currentMonthInfo[CURRENT_MONTH_INDEX]
         
         var offsetComponents = DateComponents()
         offsetComponents.month = indexPath.section
         offsetComponents.day = indexPath.item - firstDayInMonth
         
-        if let dateUserSelected = self.gregorian.date(byAdding: offsetComponents, to: startOfMonthCache, options: NSCalendar.Options()) {
-            
-            dateBeingSelectedByUser = dateUserSelected
-            
-            // Optional protocol method (the delegate can "object")
-//            if let canSelectFromDelegate = delegate?.calendar?(self, canSelectDate: dateUserSelected) {
-//                return canSelectFromDelegate
-//            }
-            
-            return true // it can select any date by default
-            
-        }
-        
-        return false
+        return self.gregorian.date(byAdding: offsetComponents, to: startOfMonthCache, options: NSCalendar.Options())!
         
     }
     
@@ -287,33 +317,10 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
             return
         }
         
-        self.calendarView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+        self.calendarView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         
-        selectedIndexPaths.append(indexPath)
-        selectedDates.append(date)
-        
-    }
-    
-    func deselectDate(date : Date) {
-        
-        guard let indexPath = self.indexPathForDate(date: date) else {
-            return
-        }
-        
-        guard self.calendarView.indexPathsForSelectedItems?.contains(indexPath) == true else {
-            return
-        }
-        
-        
-        self.calendarView.deselectItem(at: indexPath, animated: false)
-        
-        guard let index = selectedIndexPaths.index(of: indexPath) else {
-            return
-        }
-        
-        selectedIndexPaths.remove(at: index)
-        selectedDates.remove(at: index)
-        
+        selectedIndexPath = indexPath
+        selectedDate = date
         
     }
     
@@ -338,36 +345,56 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         guard let dateBeingSelectedByUser = dateBeingSelectedByUser else {
             return
         }
-                
+        
         delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser)
         
         // Update model
-        selectedIndexPaths.append(indexPath)
-        selectedDates.append(dateBeingSelectedByUser)
+        selectedIndexPath = indexPath
+        selectedDate = dateBeingSelectedByUser
+        
+        let monthComparisonResult = selectedIndexPathMonthComparisonResult(indexPath: indexPath)
+        
+        switch monthComparisonResult {
+        case .same:
+            break
+        case .next:
+            setDisplayDate(date: dateBeingSelectedByUser, animated: true)
+            break
+        case .previous:
+            setDisplayDate(date: dateBeingSelectedByUser, animated: true)
+            break
+        }
+        
+        reloadData()
         
     }
-
-    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    
+    public func scrollToNextMonth(animated: Bool) {
         
-        guard dateBeingSelectedByUser != nil else {
-            return
-        }
+        /*
+         
+         1. GET THE CURRENT MONTH & YEAR
+         2. CHECK FOR MAXIMUM DATE SPECIFIED
+         3. INCREASE BY 1 IF NOT EXCEEDED
+         4. ADD WIDTH TO CURRRENT OFFSET AND SCROLL IT
+         5. RETURN IF EXCEEDED
+         
+         1. GET NEXT MONTHS FIRST DATE
+         2. USE SELECT DATE METHOD TO SCROLL
+         
+         */
         
-        guard let index = selectedIndexPaths.index(of: indexPath) else {
-            return
-        }
+    }
+    
+    public func scrollToPreviousMonth(animated: Bool) {
         
-//        delegate?.calendar?(self, didDeselectDate: dateBeingSelectedByUser)
         
-        selectedIndexPaths.remove(at: index)
-        selectedDates.remove(at: index)
         
     }
     
     func reloadData() {
         self.calendarView.reloadData()
     }
-    
     
     func setDisplayDate(date : Date, animated: Bool) {
         
@@ -414,4 +441,6 @@ private extension MVCalendarView {
         self.addConstraints(allConstraints)
         
     }
+    
+    
 }
