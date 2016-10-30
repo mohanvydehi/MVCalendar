@@ -274,22 +274,9 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
     private var dateBeingSelectedByUser : Date?
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
-        let dateUserSelected = dateForIndexPath(indexPath: indexPath)
-        
-        if dateUserSelected != nil {
-            
-            dateBeingSelectedByUser = dateUserSelected
-            
-            // Optional protocol method (the delegate can "object")
-            //            if let canSelectFromDelegate = delegate?.calendar?(self, canSelectDate: dateUserSelected) {
-            //                return canSelectFromDelegate
-            //            }
-            
-            return true // it can select any date by default
-
-        }
-        
-        return false
+        dateBeingSelectedByUser = dateForIndexPath(indexPath: indexPath)
+        // TODO: Need to check if selected date is lessthan from today's date need to return false
+        return true
         
     }
     
@@ -297,7 +284,6 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         
         let currentMonthInfo : [Int] = monthInfo[indexPath.section]!
         let firstDayInMonth = currentMonthInfo[FIRST_DAY_INDEX]
-        let currentMonth = currentMonthInfo[CURRENT_MONTH_INDEX]
         
         var offsetComponents = DateComponents()
         offsetComponents.month = indexPath.section
