@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -24,16 +24,53 @@
                                     <constraint firstAttribute="height" constant="320" id="PZL-wX-saf"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fq-Y1-vtr">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ody-5k-GeY">
+                                        <frame key="frameInset" minX="8" minY="5" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="&lt;"/>
+                                        <connections>
+                                            <action selector="previousButtonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MCR-hb-VG7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3p0-fs-lzg">
+                                        <frame key="frameInset" minX="337" minY="5" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="&gt;"/>
+                                        <connections>
+                                            <action selector="nextButtonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="BFP-Ra-eyd"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Bn-Nb-gwM">
+                                        <frame key="frameInset" minX="46" minY="10" width="283" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="RZq-du-NQC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7Es-au-qFy" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="BXn-IC-eYT"/>
+                            <constraint firstAttribute="trailing" secondItem="2fq-Y1-vtr" secondAttribute="trailing" id="SXv-2T-eb2"/>
+                            <constraint firstItem="2fq-Y1-vtr" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="fCv-Aa-fPY"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="7Es-au-qFy" secondAttribute="bottom" id="hEF-21-1jX"/>
+                            <constraint firstItem="7Es-au-qFy" firstAttribute="top" secondItem="2fq-Y1-vtr" secondAttribute="bottom" id="lUC-15-YCl"/>
                             <constraint firstAttribute="trailing" secondItem="7Es-au-qFy" secondAttribute="trailing" id="qXb-a5-czE"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="calendarView" destination="7Es-au-qFy" id="aYY-8o-aRw"/>
+                        <outlet property="dateLabel" destination="6Bn-Nb-gwM" id="to4-3j-2aP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

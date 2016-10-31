@@ -271,7 +271,7 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
     
     // MARK : CollectionView Delegate Methods
     
-    private var dateBeingSelectedByUser : Date?
+    private var dateBeingSelectedByUser : Date? = Date()
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
         dateBeingSelectedByUser = dateForIndexPath(indexPath: indexPath)
@@ -334,7 +334,6 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         
         delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser)
         
-        // Update model
         selectedIndexPath = indexPath
         selectedDate = dateBeingSelectedByUser
         
@@ -357,24 +356,31 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
     
     public func scrollToNextMonth(animated: Bool) {
         
-        /*
-         
-         1. GET THE CURRENT MONTH & YEAR
-         2. CHECK FOR MAXIMUM DATE SPECIFIED
-         3. INCREASE BY 1 IF NOT EXCEEDED
-         4. ADD WIDTH TO CURRRENT OFFSET AND SCROLL IT
-         5. RETURN IF EXCEEDED
-         
-         1. GET NEXT MONTHS FIRST DATE
-         2. USE SELECT DATE METHOD TO SCROLL
-         
-         */
+        var todayComponents = calendar.components([.year, .month], from: dateBeingSelectedByUser!)
+        todayComponents.month = todayComponents.month! + 1
+        let firstDayOfNextMonth = calendar.date(from: todayComponents)
+        
+        dateBeingSelectedByUser = firstDayOfNextMonth
+        selectedDate = firstDayOfNextMonth!
+        setDisplayDate(date: dateBeingSelectedByUser!, animated: true)
+        reloadData()
+        
+        delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser!)
         
     }
     
     public func scrollToPreviousMonth(animated: Bool) {
         
+        var todayComponents = calendar.components([.year, .month], from: dateBeingSelectedByUser!)
+        todayComponents.month = todayComponents.month! - 1
+        let firstDayOfNextMonth = calendar.date(from: todayComponents)
         
+        dateBeingSelectedByUser = firstDayOfNextMonth
+        selectedDate = firstDayOfNextMonth!
+        setDisplayDate(date: dateBeingSelectedByUser!, animated: true)
+        reloadData()
+        
+        delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser!)
         
     }
     

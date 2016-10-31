@@ -12,6 +12,19 @@ import MVCalendar
 class ViewController: UIViewController {
     
     @IBOutlet weak var calendarView: MVCalendarView!
+    @IBOutlet weak var dateLabel: UILabel!
+   
+    @IBAction func previousButtonTapped(_ sender: AnyObject) {
+        
+        calendarView.scrollToPreviousMonth(animated: true)
+        
+    }
+    
+    @IBAction func nextButtonTapped(_ sender: AnyObject) {
+        
+        calendarView.scrollToNextMonth(animated: true)
+        
+    }
     
     override func viewDidLoad() {
         
@@ -46,7 +59,9 @@ extension ViewController: MVCalendarViewDataSource, MVCalendarViewDelegate {
     
     func calendar(calendar: MVCalendarView, didSelectDate date: Date) {
         
-        print(date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateLabel.text = dateFormatter.string(from: date)
         
     }
     
