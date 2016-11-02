@@ -8,11 +8,20 @@
 
 import UIKit
 
+enum MVScrollDirection: Int {
+    
+    case horizontal
+    case vertical
+    
+}
+
 class MVCalendarManager: NSObject {
 
     /*
         1. Scroll Direction
         2. 
      */
+    
+    public var scrollDirection: MVScrollDirection =  .horizontal
     
 }
