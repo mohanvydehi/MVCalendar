@@ -275,6 +275,8 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
             return
         }
         
+        self.displayDate = yearDate
+        
     }
     
     // MARK : CollectionView Delegate Methods
