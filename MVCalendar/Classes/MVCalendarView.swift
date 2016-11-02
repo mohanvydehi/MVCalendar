@@ -6,6 +6,11 @@
 //  Copyright © 2016 Mohan Vydehi. All rights reserved.
 //
 
+/*
+    1. Date before today should be desabled.
+    2. Default date of selection is today.
+ */
+
 import UIKit
 
 let MAXIMUM_NUMBER_OF_ROWS  = 6
@@ -91,17 +96,19 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         }
     }
     
-    var displayDate : Date?
+    var displayDate : Date? = Date()
     
-    private var startDateCache : Date = Date()
-    private var endDateCache : Date = Date()
+    private var startDateCache : Date!
+    private var endDateCache : Date!
     private var startOfMonthCache : Date = Date()
-    private var todayIndexPath : NSIndexPath?
+    private var todayIndexPath : IndexPath?
     
     private var selectedIndexPath : IndexPath = IndexPath()
-    private var selectedDate : Date = Date()
+    private var selectedDate : Date? = Date()
     
+    private var monthInfo : [Int:[Int]] = [Int:[Int]]()
     
+
     override init(frame: CGRect) {
         super.init(frame : frame)
         self.initialSetup()
@@ -147,7 +154,7 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
             
             let differenceFromTodayComponents = self.gregorian.components([NSCalendar.Unit.month, NSCalendar.Unit.day], from: startOfMonthCache, to: today, options: NSCalendar.Options())
             
-            self.todayIndexPath = NSIndexPath(item: differenceFromTodayComponents.day!, section: differenceFromTodayComponents.month!)
+            self.todayIndexPath = NSIndexPath(item: differenceFromTodayComponents.day!, section: differenceFromTodayComponents.month!) as IndexPath
             
         }
         
@@ -156,8 +163,6 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         return differenceComponents.month! + 1 // if we are for example on the same month and the difference is 0 we still need 1 to display it
         
     }
-    
-    private var monthInfo : [Int:[Int]] = [Int:[Int]]()
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -195,8 +200,8 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
             dayCell.isToday = (idx.section == indexPath.section && idx.item + fdIndex == indexPath.item)
         }
         
-        dayCell.isCurrentMonth = isSelectedIndexPathCurrentMonth(indexPath: indexPath)
-        dayCell.isSelected = (selectedDate.compare(date) == .orderedSame)
+        dayCell.isDateSelectable = isSelectedIndexPathCurrentMonth(indexPath: indexPath)
+        dayCell.isSelected = (selectedDate!.compare(date) == .orderedSame)
 
         if indexPath.section == 0 && indexPath.item == 0 {
             self.scrollViewDidEndDecelerating(collectionView)
@@ -208,7 +213,14 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
     
     private func isSelectedIndexPathCurrentMonth(indexPath: IndexPath) -> Bool {
         
-        return (selectedIndexPathMonthComparisonResult(indexPath: indexPath) == MVMonthComparisonResult.same)
+        var isDateSelectable: Bool = (selectedIndexPathMonthComparisonResult(indexPath: indexPath) == MVMonthComparisonResult.same)
+        let selectedDate = dateForIndexPath(indexPath: indexPath)
+
+        if (selectedDate.compare(Date()) == .orderedAscending) {
+            isDateSelectable = false
+        }
+        
+        return isDateSelectable
         
     }
     
@@ -262,19 +274,14 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         guard let yearDate = self.gregorian.date(byAdding: monthsOffsetComponents, to: self.startOfMonthCache, options: NSCalendar.Options()) else {
             return
         }
-
-        self.displayDate = yearDate
-        
-//        delegate.calendar(self, didScrollToMonth: yearDate)
         
     }
     
     // MARK : CollectionView Delegate Methods
     
-    private var dateBeingSelectedByUser : Date? = Date()
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
-        dateBeingSelectedByUser = dateForIndexPath(indexPath: indexPath)
+        selectedDate = dateForIndexPath(indexPath: indexPath)
         // TODO: Need to check if selected date is lessthan from today's date need to return false
         return true
         
@@ -328,14 +335,11 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let dateBeingSelectedByUser = dateBeingSelectedByUser else {
+        guard let dateBeingSelectedByUser = selectedDate else {
             return
         }
         
-        delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser)
-        
         selectedIndexPath = indexPath
-        selectedDate = dateBeingSelectedByUser
         
         let monthComparisonResult = selectedIndexPathMonthComparisonResult(indexPath: indexPath)
         
@@ -352,35 +356,39 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
         
         reloadData()
         
+        delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser)
+        
     }
     
     public func scrollToNextMonth(animated: Bool) {
         
-        var todayComponents = calendar.components([.year, .month], from: dateBeingSelectedByUser!)
+        var todayComponents = calendar.components([.year, .month], from: selectedDate!)
         todayComponents.month = todayComponents.month! + 1
         let firstDayOfNextMonth = calendar.date(from: todayComponents)
         
-        dateBeingSelectedByUser = firstDayOfNextMonth
         selectedDate = firstDayOfNextMonth!
-        setDisplayDate(date: dateBeingSelectedByUser!, animated: true)
+        setDisplayDate(date: selectedDate!, animated: true)
         reloadData()
         
-        delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser!)
+        delegate?.calendar!(calendar: self, didSelectDate: selectedDate!)
         
     }
     
     public func scrollToPreviousMonth(animated: Bool) {
         
-        var todayComponents = calendar.components([.year, .month], from: dateBeingSelectedByUser!)
+        var todayComponents = calendar.components([.year, .month], from: selectedDate!)
         todayComponents.month = todayComponents.month! - 1
-        let firstDayOfNextMonth = calendar.date(from: todayComponents)
+        var firstDayOfPreviousMonth = calendar.date(from: todayComponents)
         
-        dateBeingSelectedByUser = firstDayOfNextMonth
-        selectedDate = firstDayOfNextMonth!
-        setDisplayDate(date: dateBeingSelectedByUser!, animated: true)
+        if firstDayOfPreviousMonth?.compare(Date()) == .orderedAscending {
+            firstDayOfPreviousMonth = Date()
+        }
+        
+        selectedDate = firstDayOfPreviousMonth!
+        setDisplayDate(date: selectedDate!, animated: true)
         reloadData()
         
-        delegate?.calendar!(calendar: self, didSelectDate: dateBeingSelectedByUser!)
+        delegate?.calendar!(calendar: self, didSelectDate: selectedDate!)
         
     }
     

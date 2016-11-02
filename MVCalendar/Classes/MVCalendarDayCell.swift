@@ -35,7 +35,7 @@ public class MVCalendarDayCell: UICollectionViewCell {
             
             if isToday == false {
                 
-                if isSelected == true && isCurrentMonth == true {
+                if isSelected == true && isDateSelectable == true {
                     self.pBackgroundView.backgroundColor = UIColor.lightGray
                 }
                 else {
@@ -47,11 +47,11 @@ public class MVCalendarDayCell: UICollectionViewCell {
         }
     }
     
-    public var isCurrentMonth : Bool = true {
+    public var isDateSelectable : Bool = true {
         
         didSet {
             
-            if isCurrentMonth == true {
+            if isDateSelectable == true {
                 textLabel.textColor = currentMonthTextColor
             } else {
                 textLabel.textColor = previousMonthTextColor
