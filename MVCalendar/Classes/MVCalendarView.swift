@@ -57,7 +57,7 @@ public class MVCalendarView: UIView, UICollectionViewDataSource, UICollectionVie
     lazy var calendarView : UICollectionView = {
         
         let layout = MVCalendarFlowLayout()
-        layout.scrollDirection =
+        layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         
